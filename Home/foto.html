@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Take a photo</title>
+
+  <!-- Fuente pixel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="foto.css" />
+</head>
+
+<body>
+
+  <!-- BOTÓN BACK -->
+  <button class="back-btn" onclick="window.location.href='index.html'">
+    ← Back
+  </button>
+
+  <h1>★ ⋆Take a photo⋆ ★</h1>
+
+  <!-- TARJETA -->
+  <div class="camera-layout">
+
+    <!-- COLUMNA VIDEO -->
+    <div class="camera-column">
+      <video id="camera" autoplay></video>
+
+      <!-- BOTÓN CREAR (dentro de la caja) -->
+      <button id="captureBtn">take a photo</button>
+    </div>
+
+    <!-- MINIATURAS -->
+    <div class="thumbnails">
+      <div class="thumb-wrapper">
+        <canvas class="thumb"></canvas>
+        <span class="remove">✕</span>
+      </div>
+      <div class="thumb-wrapper">
+        <canvas class="thumb"></canvas>
+        <span class="remove">✕</span>
+      </div>
+      <div class="thumb-wrapper">
+        <canvas class="thumb"></canvas>
+        <span class="remove">✕</span>
+      </div>
+      <div class="thumb-wrapper">
+        <canvas class="thumb"></canvas>
+        <span class="remove">✕</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTÓN SIGUIENTE PASO -->
+  <button id="createStripBtn" disabled>
+    Create photo strip
+  </button>
+
+
+  <script src="foto.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>photobooth</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="photobooth.css">
+
+</head>
+<body> 
+
+<div class="stars"></div>
+<main class="principal">
+<section class = "home">
+<h1>⋆༺Key's photobooth༻⋆</h1>
+
+    <p class="subtitulo" >
+        create beautiful memoties with your love ones!
+    </p>
+    <div class ="botones">
+
+    <button id="takePhotoBtn" class="btn_primario">Take a photo</button>
+
+    <button id="uploadPhotoBtn" class="btn_secundario">upload a photo</button> </div>
+
+    <p class="descripcion">
+        Choose “Upload photos” to create a photo strip from your gallery,
+        or “Take photo” to capture new memories with your camera.
+    </p>
+
+    <video id="camera" autoplay playsinline></video>
+    
+    <canvas id="photoCanvas" hidden></canvas>
+</section>
+</main>
+
+ <script src="home.js"></script>
+
+</body>
+</html>

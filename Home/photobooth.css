@@ -1,0 +1,183 @@
+/* =========================
+   VARIABLES
+========================= */
+:root {
+  --verde-fondo-1: #e9fbe9;
+  --verde-fondo-2: #f7fff7;
+  --verde-tarjeta: #eef9e9;
+  --verde-boton: #9edb82;
+  --verde-pixel: #8bcf73;
+  --texto: #2f3e2f;
+  --sombra: rgba(0, 0, 0, 0.12);
+}
+
+/* =========================
+   BASE
+========================= */
+html,
+body {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background: linear-gradient(
+    180deg,
+    var(--verde-fondo-1),
+    var(--verde-fondo-2)
+  );
+
+  font-family: 'Pixelify Sans', sans-serif;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================
+   FONDO ESTRELLAS
+========================= */
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.stars::before,
+.stars::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(4px 4px at 20px 30px, #6fae6f, transparent),
+    radial-gradient(4px 3px at 70px 90px, #6fae6f, transparent),
+    radial-gradient(4px 4px at 130px 50px, #6fae6f, transparent),
+    radial-gradient(3.5px 3.5px at 160px 140px, #6fae6f, transparent);
+
+  background-size: 160px 160px;
+}
+
+.stars::before {
+  opacity: 0.25;
+}
+
+.stars::after {
+  opacity: 0;
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 70% { opacity: 0; }
+  75%     { opacity: 0.4; }
+  80%     { opacity: 0; }
+  100%    { opacity: 0; }
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+.principal {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* =========================
+   TARJETA HOME
+========================= */
+.home {
+  background-color: var(--verde-tarjeta);
+  width: 380px;
+  padding: 24px 24px 20px;
+ height: 330px;
+  border-radius: 24px;
+  text-align: center;
+
+  box-shadow:
+    8px 8px 0 #cdebc8,
+    -8px -8px 0 #f6fff4,
+    0 16px 32px var(--sombra);
+}
+
+
+/* =========================
+   TÍTULO
+========================= */
+.home h1 {
+  font-size: 28px;
+  color: var(--texto);
+  margin-bottom: 12px;
+}
+
+/* =========================
+   SUBTÍTULO
+========================= */
+.subtitulo {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: var(--texto);
+  margin-bottom: 28px; /* 👈 separa del bloque de botones */
+}
+
+
+/* =========================
+   BOTONES
+========================= */
+.botones {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 26px; /* 👈 empuja el texto de abajo */
+}
+/* Hover */
+.btn_primario:hover,
+.btn_secundario:hover {
+  background-color: var(--verde-boton-hover);
+}
+
+/* =========================
+   BOTONES PIXEL
+========================= */
+.btn_primario,
+.btn_secundario {
+  padding: 14px;
+  border-radius: 20px;
+  border: none;
+
+  background-color: var(--verde-boton);
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 16px;
+
+  cursor: pointer;
+
+  box-shadow:
+    6px 0 0 var(--verde-pixel),
+    -6px 0 0 var(--verde-pixel),
+    0 6px 0 var(--verde-pixel),
+    0 -6px 0 var(--verde-pixel),
+    10px 10px 0 rgba(158, 219, 130, 0.6),
+    -10px 10px 0 rgba(158, 219, 130, 0.6);
+
+  transition: transform 0.12s ease;
+}
+
+.btn_primario:active,
+.btn_secundario:active {
+  transform: translateY(4px);
+}
+
+/* =========================
+   DESCRIPCIÓN
+========================= */
+.descripcion {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--texto);
+  margin: 0;
+}
+

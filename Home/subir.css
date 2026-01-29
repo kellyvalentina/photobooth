@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(#d8f7d4, #ecffe8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Back button */
+.back-btn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Página */
+.upload-page {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título pixel */
+.title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+/* Caja de upload */
+.upload-box {
+  width: 420px;
+  height: 220px;
+  border: 2px dashed #8bcf85;
+  border-radius: 18px;
+  background: #f4fff1;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.choose-btn {
+  margin-top: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #8bcf85;
+  background: white;
+  cursor: pointer;
+}
+
+/* Uploaded photos title */
+.uploaded-title {
+  margin: 30px 0 15px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+}
+
+/* Contenedor centrado */
+.uploaded-photos {
+  display: grid;
+  grid-template-columns: repeat(4, 110px);
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Slot */
+.photo-slot {
+  width: 110px;
+  height: 110px;
+  border: 2px dashed #8bcf85;
+  border-radius: 16px;
+  background: #f4fff1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Botón eliminar */
+.remove-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 14px;
+  cursor: pointer;
+
+  display: none; /* SOLO aparece cuando hay imagen */
+}
+
+/* Cuando el slot tenga imagen */
+.photo-slot.filled .remove-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.create-btn {
+  margin-top: 32px;
+  padding: 16px 42px;
+  font-family: "Pixelify Sans", monospace;
+  font-size: 16px;
+  background-color: #9adf8f;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #6fbf63;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.create-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.create-btn:not(:disabled):active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #6fbf63;
+}

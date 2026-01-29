@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload Photos</title>
+
+  <!-- Fuente pixel -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="subir.css" />
+</head>
+<body>
+
+  <!-- Botón Back -->
+  <button class="back-btn" onclick="window.location.href='index.html'">
+    ← Back
+  </button>
+  
+  <main class="upload-page">
+
+    <h1 class="title">★ ⋆Upload Your Photos⋆ ★</h1>
+
+  
+    <label class="upload-box">
+      <input type="file" accept="image/*" multiple hidden />
+      
+      <div class="upload-content">
+        <span class="icon">☁️</span>
+        <p>Choose a file or drag & drop it here</p>
+        <small>Upload 4 photos to continue</small>
+        <button type="button" class="choose-btn">Choose Files</button>
+      </div>
+    </label>
+
+    <p class="uploaded-title">Uploaded Photos</p>
+
+    <!-- Slots -->
+    <div class="uploaded-photos">
+      <div class="photo-slot">
+        <button class="remove-btn">✕</button>
+      </div>
+      <div class="photo-slot">
+        <button class="remove-btn">✕</button>
+      </div>
+      <div class="photo-slot">
+        <button class="remove-btn">✕</button>
+      </div>
+      <div class="photo-slot">
+        <button class="remove-btn">✕</button>
+      </div>
+    </div>
+
+  <button id="createStripBtn" class="create-btn" disabled>
+  Create photostrip
+</button>
+
+
+  </main>
+<script src="upload.js"></script>
+</body>
+</html>

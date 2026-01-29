@@ -1,0 +1,164 @@
+/* =========================
+   VARIABLES
+========================= */
+:root {
+  --verde-fondo-1: #e9fbe9;
+  --verde-fondo-2: #f7fff7;
+  --verde-tarjeta: #eef9e9;
+  --verde-boton: #9edb82;
+  --verde-pixel: #8bcf73;
+  --texto: #2f3e2f;
+  --sombra: rgba(0, 0, 0, 0.12);
+}
+
+/* =========================
+   BASE
+========================= */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--verde-fondo-1), var(--verde-fondo-2));
+  font-family: 'Pixelify Sans', sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================
+   BACK
+========================= */
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* =========================
+   TÍTULO
+========================= */
+h1 {
+  margin-bottom: 16px;
+}
+
+/* =========================
+   TARJETA
+========================= */
+.camera-layout {
+  background-color: var(--verde-tarjeta);
+  padding: 20px;
+  border-radius: 24px;
+
+  display: flex;
+  gap: 20px;
+
+  box-shadow:
+    8px 8px 0 #cdebc8,
+    -8px -8px 0 #f6fff4,
+    0 16px 32px var(--sombra);
+
+  margin-bottom: 20px;
+}
+
+/* =========================
+   COLUMNA VIDEO
+========================= */
+.camera-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+video {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 2px dashed var(--verde-pixel);
+}
+
+/* =========================
+   MINIATURAS
+========================= */
+.thumbnails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.thumb-wrapper {
+  position: relative;
+}
+
+.thumb {
+  width: 90px;
+  height: 90px;
+  border: 2px dashed var(--verde-pixel);
+  border-radius: 14px;
+  background-color: #f6fff4;
+}
+
+.remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+
+  background: #ff6b6b;
+  color: white;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  display: none;
+}
+
+/* =========================
+   BOTONES
+========================= */
+#captureBtn,
+#createStripBtn {
+  padding: 12px 28px;
+  border-radius: 18px;
+  border: none;
+  background-color: var(--verde-boton);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+
+  box-shadow:
+    6px 0 0 var(--verde-pixel),
+    -6px 0 0 var(--verde-pixel),
+    0 6px 0 var(--verde-pixel),
+    0 -6px 0 var(--verde-pixel);
+}
+
+#createStripBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================
+   FLASH
+========================= */
+.flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  animation: flash 0.3s ease;
+}
+
+@keyframes flash {
+  0% { opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0; }
+}

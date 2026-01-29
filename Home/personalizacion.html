@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Customize your photostrip</title>
+
+  <!-- Fuente -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="p.css" />
+
+  <!-- html2canvas para descargar -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+   <button class="back-btn" onclick="window.location.href='foto.html'">
+    ← Back
+  </button>
+  <main class="customize-container">
+
+    <!-- Panel izquierdo -->
+    <section class="controls">
+      <h1>Customize your photostrip</h1>
+
+<section>
+      <div class="option-group">
+        <h2>STRIP COLOR</h2>
+        <p>
+          Selecciona el color de fondo para tu tira de fotos
+        </p>
+        <div class="color-options" id="stripColors"></div>
+      </div> </section>
+
+<section>
+      <div class="option-group">
+        <h2>FRAME</h2>
+        <p>
+          Selecciona el color del marco alrededor de cada foto
+        </p>
+        <div class="color-options" id="frameColors"></div>
+      </div> </section>
+
+<section>
+<div class="option-group">
+  <h2>STICKERS</h2>
+  <p>Selecciona los stickers que quieres agregar a tu tira de fotos</p>
+  <div class="sticker-options" id="stickerOptions">
+</div>  </section>
+</div>
+
+<section>
+<button id="downloadBtn" class="btn_primario">Download Strip</button>
+</section>
+
+      <section>
+<div>
+        <p>⋆｡˚ʚThanks for use key's photobooth⋆｡˚ʚ 
+             ★ Att:Kelly ★</p>
+       </div>
+      </section> 
+      </section>
+
+    <!-- Preview -->
+    <section class="preview">
+      <div class="photostrip" id="photoStrip">
+        <!-- Fotos tomadas se cargarán aquí -->
+      </div>
+    </section>
+
+  </main>
+  <script src="p.js"></script>
+</body>
+</html>
