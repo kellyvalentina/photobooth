@@ -1,77 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Customize your photostrip</title>
-
-  <!-- Fuente -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personaliza tu photostrip · #TeamSistemas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css" />
   <link rel="stylesheet" href="p.css" />
-
-  <!-- html2canvas para descargar -->
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
-
 <body>
-   <button class="back-btn" onclick="window.location.href='foto.html'">
-    ← Back
-  </button>
+  <div class="stars"></div>
+  <button class="back-btn" id="backBtn">← Volver</button>
+
   <main class="customize-container">
-
-    <!-- Panel izquierdo -->
-    <section class="controls">
-      <h1>Customize your photostrip</h1>
-
-<section>
-      <div class="option-group">
-        <h2>STRIP COLOR</h2>
-        <p>
-          Selecciona el color de fondo para tu tira de fotos
-        </p>
-        <div class="color-options" id="stripColors"></div>
-      </div> </section>
-
-<section>
-      <div class="option-group">
-        <h2>FRAME</h2>
-        <p>
-          Selecciona el color del marco alrededor de cada foto
-        </p>
-        <div class="color-options" id="frameColors"></div>
-      </div> </section>
-
-<section>
-<div class="option-group">
-  <h2>STICKERS</h2>
-  <p>Selecciona los stickers que quieres agregar a tu tira de fotos</p>
-  <div class="sticker-options" id="stickerOptions">
-</div>  </section>
-</div>
-
-<section>
-<button id="downloadBtn" class="btn_primario">Download Strip</button>
-</section>
-
-      <section>
-<div>
-        <p>⋆｡˚ʚThanks for use key's photobooth⋆｡˚ʚ 
-             ★ Att:Kelly ★</p>
-       </div>
-      </section> 
-      </section>
-
-    <!-- Preview -->
+    <!-- Vista previa -->
     <section class="preview">
       <div class="photostrip" id="photoStrip">
-        <!-- Fotos tomadas se cargarán aquí -->
+        <div class="fotos" id="fotos"></div>
+        <div class="strip-footer">
+          <span class="strip-hashtag">#TeamSistemas</span>
+          <span class="strip-sub">★ Srta. Ing. de Sistemas ★</span>
+        </div>
       </div>
+      <p class="ayuda texto-sistema">Arrastra los stickers con el dedo o el mouse.</p>
     </section>
 
+    <!-- Controles -->
+    <section class="controls tarjeta">
+      <h1>Personaliza tu photostrip</h1>
+
+      <div class="option-group">
+        <h2>COLOR DE FONDO</h2>
+        <div class="color-options" id="stripColors"></div>
+      </div>
+
+      <div class="option-group">
+        <h2>COLOR DEL MARCO</h2>
+        <div class="color-options" id="frameColors"></div>
+      </div>
+
+      <div class="option-group">
+        <h2>STICKERS</h2>
+        <p class="texto-sistema">Toca un sticker para agregarlo a tu tira.</p>
+        <div class="sticker-options" id="stickerOptions"></div>
+        <button id="removeStickerBtn" class="btn suave" disabled>Quitar sticker seleccionado</button>
+      </div>
+
+      <div class="acciones">
+        <button id="shareBtn" class="btn" hidden>Compartir 💜</button>
+        <button id="downloadBtn" class="btn azul">Descargar</button>
+      </div>
+
+      <p class="recordatorio texto-sistema">
+        Súbela a tus historias con <b>#TeamSistemas</b> y etiqueta a la U 💜
+      </p>
+    </section>
   </main>
+
+  <p class="firma">⋆｡˚ʚ Gracias por usar el photobooth · Kelly ɞ˚｡⋆</p>
+
   <script src="p.js"></script>
 </body>
 </html>

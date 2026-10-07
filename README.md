@@ -1,6 +1,8 @@
-# Digital Photobooth
+# #TeamSistemas Photobooth
 
-A browser-based photobooth app that captures or uploads photos and displays them as customizable photo strips. Built with HTML, CSS and vanilla JavaScript — no libraries, no backend.
+Campaign photobooth for Señorita Ing. de Sistemas (Kelly Sánchez). A browser-based photobooth app that captures or uploads photos and displays them as customizable photo strips. Built with HTML, CSS and vanilla JavaScript — no libraries, no backend.
+
+> To use the real avatar, add the image to the repo and change `src="avatar.svg"` in `index.html`.
 
 **[Live site →](https://kellyvalentina.github.io/photobooth/)**
 
@@ -22,7 +24,7 @@ A browser-based photobooth app that captures or uploads photos and displays them
 1. **Start** — landing screen with options to take or upload a photo
 2. **Capture** — use your device camera; retake as many times as needed
 3. **Customize** — pick background color, frame color, and add stickers to your strip
-4. **Download** — save the final photo strip to your device
+4. **Share / Download** — share straight to Instagram or WhatsApp (on phones), or save the strip with the #TeamSistemas watermark
 
 ---
 

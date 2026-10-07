@@ -1,191 +1,166 @@
-/* =========================
-   VARIABLES
-========================= */
-:root {
-  --verde-fondo-1: #e9fbe9;
-  --verde-fondo-2: #f7fff7;
-  --verde-tarjeta: #eef9e9;
-  --verde-pixel: #8bcf73;
-  --texto: #2f3e2f;
-}
+/* Página de personalización — usa theme.css */
 
-/* =========================
-   BASE
-========================= */
-body {
-  margin: 0;
-  min-height: 100vh;
-
-  background: linear-gradient(
-    180deg,
-    var(--verde-fondo-1),
-    var(--verde-fondo-2)
-  );
-
-  font-family: 'Pixelify Sans', sans-serif;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.back-btn {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: 14px;
-  cursor: pointer;
-}
-section {
-  margin-bottom: 60px; /* ajusta el espacio a tu gusto */
-}
-
-/* =========================
-   LAYOUT
-========================= */
 .customize-container {
   display: flex;
-  gap: 60px;
+  gap: 48px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
 }
 
-/* =========================
-   CONTROLES
-========================= */
+/* ---------- Vista previa ---------- */
+.preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.photostrip {
+  position: relative;
+  width: 240px;
+  padding: 12px 12px 10px;
+  border: 6px solid #e2d6ee;
+  border-radius: 18px;
+  background-color: #ffffff;
+  box-shadow: 0 16px 32px var(--sombra);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.fotos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fotos img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  pointer-events: none;
+}
+
+.strip-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  line-height: 1.2;
+}
+.strip-hashtag {
+  font-size: 22px;
+  font-weight: 600;
+  color: #43386a;
+}
+.strip-sub {
+  font-size: 11px;
+  color: #6e6496;
+}
+
+.draggable-sticker {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  cursor: grab;
+  z-index: 10;
+  object-fit: contain;
+  touch-action: none; /* permite arrastrar con el dedo sin hacer scroll */
+  image-rendering: pixelated;
+}
+.draggable-sticker.seleccionado {
+  outline: 2px dashed var(--lila-pixel);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.draggable-sticker.arrastrando { cursor: grabbing; }
+
+.ayuda {
+  margin: 0;
+  font-size: 12px;
+  color: var(--texto-suave);
+}
+
+/* ---------- Controles ---------- */
 .controls {
-  width: 280px;
+  width: 320px;
+  max-width: 100%;
 }
-
 .controls h1 {
   font-size: 22px;
-  margin-bottom: 30px;
+  text-align: left;
+  margin-bottom: 20px;
 }
 
-.option-group {
-  margin-bottom: 28px;
-}
-
+.option-group { margin-bottom: 24px; }
 .option-group h2 {
   font-size: 13px;
   letter-spacing: 1px;
-  margin-bottom: 12px;
+  margin: 0 0 10px;
+}
+.option-group p {
+  font-size: 12px;
+  color: var(--texto-suave);
+  margin: 0 0 10px;
 }
 
-/* =========================
-   COLORES
-========================= */
 .color-options {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
-
 .color-circle {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   cursor: pointer;
-
-  border: 2px solid transparent;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px var(--lila);
 }
-
-.color-circle.active {
-  border-color: var(--texto);
-}
-
-/* =========================
-   PREVIEW
-========================= */
-.preview {
-  display: flex;
-  justify-content: center;
-  overflow-x: auto; /* scroll horizontal si se hace muy ancha */
-  padding: 10px;
-}
-
-.photostrip {
-  position: relative; /* importante para stickers */
-  width: 300px;       /* tamaño original de referencia */
-  padding: 8px;
-  border: 4px solid #000;
-  background-color: #fff;
-  border-radius: 18px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  /* ---- Escala visual ---- */
-  transform: scale(0.7);       /* reduce al 70% */
-  transform-origin: top left;  /* ancla la escala en la esquina superior izquierda */
-}
+.color-circle.active { box-shadow: 0 0 0 3px var(--texto); }
 
 .sticker-options {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 8px;
+  margin-bottom: 14px;
 }
-
-.sticker-options img {
-  width: 40px;        /* tamaño pequeño */
-  height: 40px;
+.sticker-thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  padding: 4px;
+  border-radius: 10px;
+  background: var(--lila-fondo);
   cursor: pointer;
-  border-radius: 6px;
-  transition: transform 0.2s;
+  transition: transform 0.15s;
+  image-rendering: pixelated;
+}
+.sticker-thumb:hover { transform: scale(1.12); }
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 8px 6px 0;
+}
+.acciones .btn[hidden] { display: none; }
+
+.recordatorio {
+  font-size: 12px;
+  color: var(--texto-suave);
+  margin: 20px 0 0;
+  text-align: center;
 }
 
-.sticker-options img:hover {
-  transform: scale(1.2);
-  border: 2px solid #fff;
-}
-
-.draggable-sticker {
-  position: absolute;
-  cursor: grab;
-  width: 60px;  /* tamaño inicial cuando se agrega a la tira */
-  height: 60px;
-}
-.photostrip {
-  position: relative; /* muy importante */
-  width: 300px;      /* ancho de tu tira */
-  padding: 8px;
-  border: 4px solid #000;
-  background-color: #fff;
-}
-
-.draggable-sticker {
-  position: absolute;  /* relativo a photostrip */
-  width: 60px;
-  height: 60px;
-  cursor: grab;
-  z-index: 10;         /* arriba de las fotos */
-}
-.btn_primario{
-  padding: 14px;
-  border-radius: 20px;
-  border: none;
-
-  background-color: var(--verde-boton);
-  font-family: 'Pixelify Sans', sans-serif;
-  font-size: 16px;
-
-  cursor: pointer;
-
-  box-shadow:
-    6px 0 0 var(--verde-pixel),
-    -6px 0 0 var(--verde-pixel),
-    0 6px 0 var(--verde-pixel),
-    0 -6px 0 var(--verde-pixel),
-    10px 10px 0 rgba(158, 219, 130, 0.6),
-    -10px 10px 0 rgba(158, 219, 130, 0.6);
-
-  transition: transform 0.12s ease;
-}
-
-.btn_primario:active,
-.btn_secundario:active {
-  transform: translateY(4px);
+/* ---------- Celular ---------- */
+@media (max-width: 700px) {
+  .customize-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
 }
