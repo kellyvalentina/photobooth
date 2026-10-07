@@ -1,63 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Take a photo</title>
-
-  <!-- Fuente pixel -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomar fotos · #TeamSistemas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css" />
   <link rel="stylesheet" href="foto.css" />
 </head>
-
 <body>
+  <div class="stars"></div>
+  <button class="back-btn" onclick="window.location.href='index.html'">← Volver</button>
 
-  <!-- BOTÓN BACK -->
-  <button class="back-btn" onclick="window.location.href='index.html'">
-    ← Back
-  </button>
+  <h1>★ ⋆Tómate 4 fotos⋆ ★</h1>
 
-  <h1>★ ⋆Take a photo⋆ ★</h1>
-
-  <!-- TARJETA -->
-  <div class="camera-layout">
-
-    <!-- COLUMNA VIDEO -->
+  <div class="camera-layout tarjeta">
     <div class="camera-column">
-      <video id="camera" autoplay></video>
-
-      <!-- BOTÓN CREAR (dentro de la caja) -->
-      <button id="captureBtn">take a photo</button>
+      <div class="video-marco">
+        <video id="camera" autoplay playsinline muted></video>
+        <div id="countdown" class="countdown" hidden></div>
+        <p id="cameraError" class="camera-error texto-sistema" hidden>
+          No pudimos abrir la cámara 😭<br>
+          Revisa el permiso en tu navegador o usa
+          <a href="subir.html">Subir fotos</a>.
+        </p>
+      </div>
+      <button id="captureBtn" class="btn" disabled>📸 Tomar foto</button>
+      <p class="ayuda texto-sistema">Toca ✕ en una miniatura para repetirla.</p>
     </div>
 
-    <!-- MINIATURAS -->
     <div class="thumbnails">
-      <div class="thumb-wrapper">
-        <canvas class="thumb"></canvas>
-        <span class="remove">✕</span>
-      </div>
-      <div class="thumb-wrapper">
-        <canvas class="thumb"></canvas>
-        <span class="remove">✕</span>
-      </div>
-      <div class="thumb-wrapper">
-        <canvas class="thumb"></canvas>
-        <span class="remove">✕</span>
-      </div>
-      <div class="thumb-wrapper">
-        <canvas class="thumb"></canvas>
-        <span class="remove">✕</span>
-      </div>
+      <div class="thumb-wrapper"><canvas class="thumb"></canvas><button class="remove" aria-label="Repetir foto 1">✕</button></div>
+      <div class="thumb-wrapper"><canvas class="thumb"></canvas><button class="remove" aria-label="Repetir foto 2">✕</button></div>
+      <div class="thumb-wrapper"><canvas class="thumb"></canvas><button class="remove" aria-label="Repetir foto 3">✕</button></div>
+      <div class="thumb-wrapper"><canvas class="thumb"></canvas><button class="remove" aria-label="Repetir foto 4">✕</button></div>
     </div>
   </div>
 
-  <!-- BOTÓN SIGUIENTE PASO -->
-  <button id="createStripBtn" disabled>
-    Create photo strip
-  </button>
-
+  <button id="createStripBtn" class="btn azul" disabled>Crear photostrip ✨</button>
 
   <script src="foto.js"></script>
 </body>

@@ -1,111 +1,95 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   const fileInput = document.querySelector('input[type="file"]');
-  const chooseBtn = document.querySelector(".choose-btn");
+  const dropZone = document.getElementById("dropZone");
   const slots = document.querySelectorAll(".photo-slot");
   const createBtn = document.getElementById("createStripBtn");
+  const contador = document.getElementById("contador");
 
-  let uploadedImages = [];
+  const TAMANO = 600; // cada foto queda cuadrada, igual que las de la cámara
+  let fotos = [];
 
-  chooseBtn.addEventListener("click", () => fileInput.click());
-
-  fileInput.addEventListener("change", (e) => {
-    const files = Array.from(e.target.files);
-
-    files.forEach(file => {
-      if (uploadedImages.length >= 4) return;
-
-      compressImage(file, (compressedBase64) => {
-        uploadedImages.push(compressedBase64);
-        renderImages();
-      });
-    });
-
+  /* Elegir archivos (el <label> ya abre el selector al tocar) */
+  fileInput.addEventListener("change", e => {
+    agregarArchivos(e.target.files);
     fileInput.value = "";
   });
 
-  function compressImage(file, callback) {
-    const reader = new FileReader();
-    reader.onload = e => {
+  /* Arrastrar y soltar (escritorio) */
+  ["dragenter", "dragover"].forEach(ev =>
+    dropZone.addEventListener(ev, e => {
+      e.preventDefault();
+      dropZone.classList.add("arrastrando");
+    })
+  );
+  ["dragleave", "drop"].forEach(ev =>
+    dropZone.addEventListener(ev, e => {
+      e.preventDefault();
+      dropZone.classList.remove("arrastrando");
+    })
+  );
+  dropZone.addEventListener("drop", e => agregarArchivos(e.dataTransfer.files));
+
+  async function agregarArchivos(lista) {
+    const imagenes = Array.from(lista).filter(f => f.type.startsWith("image/"));
+    for (const file of imagenes) {
+      if (fotos.length >= 4) break;
+      try {
+        fotos.push(await recortarCuadrado(file));
+      } catch (err) {
+        console.error(err);
+        alert(`No pudimos leer “${file.name}” 😭`);
+      }
+      render();
+    }
+  }
+
+  /* Recorta el centro de la imagen en un cuadrado y la comprime */
+  function recortarCuadrado(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
       const img = new Image();
       img.onload = () => {
+        const lado = Math.min(img.naturalWidth, img.naturalHeight);
+        const sx = (img.naturalWidth - lado) / 2;
+        const sy = (img.naturalHeight - lado) / 2;
         const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-
-        const MAX_SIZE = 600; // 🔥 CLAVE
-        let width = img.width;
-        let height = img.height;
-
-        if (width > height) {
-          if (width > MAX_SIZE) {
-            height *= MAX_SIZE / width;
-            width = MAX_SIZE;
-          }
-        } else {
-          if (height > MAX_SIZE) {
-            width *= MAX_SIZE / height;
-            height = MAX_SIZE;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        ctx.drawImage(img, 0, 0, width, height);
-
-        const compressed = canvas.toDataURL("image/jpeg", 0.7);
-        callback(compressed);
+        canvas.width = TAMANO;
+        canvas.height = TAMANO;
+        canvas.getContext("2d").drawImage(img, sx, sy, lado, lado, 0, 0, TAMANO, TAMANO);
+        URL.revokeObjectURL(url);
+        resolve(canvas.toDataURL("image/jpeg", 0.85));
       };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("imagen inválida")); };
+      img.src = url;
+    });
   }
 
-  function renderImages() {
-    slots.forEach(slot => {
-      slot.style.backgroundImage = "none";
-      slot.classList.remove("filled");
+  function render() {
+    slots.forEach((slot, i) => {
+      const foto = fotos[i];
+      slot.style.backgroundImage = foto ? `url(${foto})` : "none";
+      slot.classList.toggle("filled", !!foto);
     });
-
-    uploadedImages.forEach((img, index) => {
-      const slot = slots[index];
-      slot.style.backgroundImage = `url(${img})`;
-      slot.style.backgroundSize = "cover";
-      slot.style.backgroundPosition = "center";
-      slot.classList.add("filled");
-    });
-
-    createBtn.disabled = uploadedImages.length !== 4;
+    contador.textContent = `${fotos.length}/4`;
+    createBtn.disabled = fotos.length !== 4;
   }
 
-  slots.forEach((slot, index) => {
-    const removeBtn = slot.querySelector(".remove-btn");
-
-    removeBtn.addEventListener("click", (e) => {
+  slots.forEach((slot, i) => {
+    slot.querySelector(".remove-btn").addEventListener("click", e => {
       e.stopPropagation();
-      uploadedImages.splice(index, 1);
-      renderImages();
+      fotos.splice(i, 1);
+      render();
     });
   });
 
   createBtn.addEventListener("click", () => {
     try {
-     // Limpiar fotos anteriores
-localStorage.removeItem("photostripFotos");
-
-// Guardar las fotos subidas como las activas
-localStorage.setItem(
-  "photostripFotos",
-  JSON.stringify(uploadedImages)
-);
-
-// Ir a personalización
-window.location.href = "personalizacion.html";
-
+      localStorage.setItem("photostripFotos", JSON.stringify(fotos));
+      localStorage.setItem("photostripOrigen", "subir.html");
+      window.location.href = "personalizacion.html";
     } catch (e) {
-      alert("Las imágenes son demasiado pesadas 😭");
       console.error(e);
+      alert("Las imágenes son demasiado pesadas 😭");
     }
   });
-
 });
-

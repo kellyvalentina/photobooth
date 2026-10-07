@@ -1,17 +1,31 @@
 const video = document.getElementById("camera");
 const captureBtn = document.getElementById("captureBtn");
 const createStripBtn = document.getElementById("createStripBtn");
+const countdownEl = document.getElementById("countdown");
+const cameraError = document.getElementById("cameraError");
 
 const thumbs = document.querySelectorAll(".thumb");
-const wrappers = document.querySelectorAll(".thumb-wrapper");
 const removes = document.querySelectorAll(".remove");
 
-let fotosTomadas = [];
-let currentIndex = 0;
+const TAMANO = 600; // resolución de cada foto (cuadrada)
+const fotos = [null, null, null, null];
 
-/* 🎥 Cámara */
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then(stream => video.srcObject = stream);
+/* 🎥 Cámara frontal */
+async function iniciarCamara() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 1280 } },
+      audio: false
+    });
+    video.srcObject = stream;
+    await video.play();
+    actualizarBotones();
+  } catch (err) {
+    console.error(err);
+    cameraError.hidden = false;
+  }
+}
+iniciarCamara();
 
 /* 📸 Flash */
 function flashEffect() {
@@ -21,62 +35,92 @@ function flashEffect() {
   setTimeout(() => flash.remove(), 300);
 }
 
-/* 📷 Capturar foto */
-captureBtn.addEventListener("click", () => {
-  if (currentIndex >= 4) return;
+/* ⏱️ Cuenta regresiva 3-2-1 */
+function cuentaRegresiva(segundos) {
+  return new Promise(resolve => {
+    countdownEl.hidden = false;
+    let n = segundos;
+    countdownEl.textContent = n;
+    const timer = setInterval(() => {
+      n--;
+      if (n === 0) {
+        clearInterval(timer);
+        countdownEl.hidden = true;
+        resolve();
+      } else {
+        countdownEl.textContent = n;
+      }
+    }, 1000);
+  });
+}
 
-  const canvas = thumbs[currentIndex];
+/* Recorta el centro del video en un cuadrado (sin estirar) y lo voltea como espejo */
+function capturarCuadro() {
+  const vw = video.videoWidth;
+  const vh = video.videoHeight;
+  const lado = Math.min(vw, vh);
+  const sx = (vw - lado) / 2;
+  const sy = (vh - lado) / 2;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = TAMANO;
+  canvas.height = TAMANO;
   const ctx = canvas.getContext("2d");
+  ctx.translate(TAMANO, 0);
+  ctx.scale(-1, 1);
+  ctx.drawImage(video, sx, sy, lado, lado, 0, 0, TAMANO, TAMANO);
+  return canvas.toDataURL("image/jpeg", 0.85);
+}
 
-  canvas.width = 300;
-  canvas.height = 300;
+function pintarMiniatura(i) {
+  const canvas = thumbs[i];
+  const ctx = canvas.getContext("2d");
+  canvas.width = 168;
+  canvas.height = 168;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  removes[i].classList.toggle("visible", !!fotos[i]);
+  if (!fotos[i]) return;
+  const img = new Image();
+  img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  img.src = fotos[i];
+}
 
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+function actualizarBotones() {
+  const llenas = fotos.filter(Boolean).length;
+  captureBtn.disabled = llenas === 4 || !video.srcObject;
+  createStripBtn.disabled = llenas !== 4;
+  captureBtn.textContent = llenas === 4 ? "¡Listo! ✨" : `📸 Tomar foto (${llenas + 1}/4)`;
+}
 
-  // 📌 Guardar foto comprimida
-  const dataURL = canvas.toDataURL("image/jpeg", 0.8);
-  fotosTomadas[currentIndex] = dataURL;
-
-  wrappers[currentIndex]
-    .querySelector(".remove")
-    .style.display = "block";
-
+/* 📷 Capturar en el primer espacio vacío */
+captureBtn.addEventListener("click", async () => {
+  const i = fotos.indexOf(null);
+  if (i === -1) return;
+  captureBtn.disabled = true;
+  await cuentaRegresiva(3);
+  fotos[i] = capturarCuadro();
   flashEffect();
-  currentIndex++;
-
-  if (currentIndex === 4) {
-    captureBtn.disabled = true;
-    createStripBtn.disabled = false;
-  }
+  pintarMiniatura(i);
+  actualizarBotones();
 });
 
-/* ❌ Eliminar foto */
-removes.forEach((btn, index) => {
+/* ❌ Repetir una foto */
+removes.forEach((btn, i) => {
   btn.addEventListener("click", () => {
-    const canvas = thumbs[index];
-    const ctx = canvas.getContext("2d");
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    btn.style.display = "none";
-
-    fotosTomadas[index] = null;
-
-    currentIndex = index;
-    captureBtn.disabled = false;
-    createStripBtn.disabled = true;
+    fotos[i] = null;
+    pintarMiniatura(i);
+    actualizarBotones();
   });
 });
 
 /* 🎞️ Crear photostrip */
 createStripBtn.addEventListener("click", () => {
-  const fotosFinales = fotosTomadas.filter(foto => foto !== null);
-
-  // 🔥 LIMPIAR Y GUARDAR
-  localStorage.removeItem("photostripFotos");
-  localStorage.setItem(
-    "photostripFotos",
-    JSON.stringify(fotosFinales)
-  );
-
-  window.location.href = "personalizacion.html";
+  try {
+    localStorage.setItem("photostripFotos", JSON.stringify(fotos));
+    localStorage.setItem("photostripOrigen", "foto.html");
+    window.location.href = "personalizacion.html";
+  } catch (e) {
+    console.error(e);
+    alert("No se pudieron guardar las fotos 😭 Intenta de nuevo.");
+  }
 });

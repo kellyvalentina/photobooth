@@ -1,61 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Upload Photos</title>
-
-  <!-- Fuente pixel -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subir fotos · #TeamSistemas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css" />
   <link rel="stylesheet" href="subir.css" />
 </head>
 <body>
+  <div class="stars"></div>
+  <button class="back-btn" onclick="window.location.href='index.html'">← Volver</button>
 
-  <!-- Botón Back -->
-  <button class="back-btn" onclick="window.location.href='index.html'">
-    ← Back
-  </button>
-  
   <main class="upload-page">
+    <h1>★ ⋆Sube tus fotos⋆ ★</h1>
 
-    <h1 class="title">★ ⋆Upload Your Photos⋆ ★</h1>
-
-  
-    <label class="upload-box">
+    <label class="upload-box tarjeta" id="dropZone">
       <input type="file" accept="image/*" multiple hidden />
-      
-      <div class="upload-content">
-        <span class="icon">☁️</span>
-        <p>Choose a file or drag & drop it here</p>
-        <small>Upload 4 photos to continue</small>
-        <button type="button" class="choose-btn">Choose Files</button>
-      </div>
+      <span class="icon">☁️</span>
+      <p>Toca para elegir de tu galería<br><span class="solo-escritorio">o arrastra las fotos aquí</span></p>
+      <small class="texto-sistema">Necesitas 4 fotos para continuar</small>
+      <span class="btn suave choose-btn">Elegir fotos</span>
     </label>
 
-    <p class="uploaded-title">Uploaded Photos</p>
+    <p class="uploaded-title">Tus fotos <span id="contador">0/4</span></p>
 
-    <!-- Slots -->
     <div class="uploaded-photos">
-      <div class="photo-slot">
-        <button class="remove-btn">✕</button>
-      </div>
-      <div class="photo-slot">
-        <button class="remove-btn">✕</button>
-      </div>
-      <div class="photo-slot">
-        <button class="remove-btn">✕</button>
-      </div>
-      <div class="photo-slot">
-        <button class="remove-btn">✕</button>
-      </div>
+      <div class="photo-slot"><button class="remove-btn" aria-label="Quitar foto 1">✕</button></div>
+      <div class="photo-slot"><button class="remove-btn" aria-label="Quitar foto 2">✕</button></div>
+      <div class="photo-slot"><button class="remove-btn" aria-label="Quitar foto 3">✕</button></div>
+      <div class="photo-slot"><button class="remove-btn" aria-label="Quitar foto 4">✕</button></div>
     </div>
 
-  <button id="createStripBtn" class="create-btn" disabled>
-  Create photostrip
-</button>
-
-
+    <button id="createStripBtn" class="btn azul" disabled>Crear photostrip ✨</button>
   </main>
-<script src="upload.js"></script>
+
+  <script src="upload.js"></script>
 </body>
 </html>
